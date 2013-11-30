@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Designate::VERSION
   spec.authors       = ['Tate Johnson']
   spec.email         = ['tate@tatey.com']
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A short hand for turning instance methods into a one-liner for service-type classes.}
+  spec.summary       = %q{A short hand for turning instance methods into a one-liner for service-type classes.}
   spec.homepage      = 'https://github.com/tatey/designate'
   spec.license       = 'MIT'
 
