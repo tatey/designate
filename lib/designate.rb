@@ -36,13 +36,29 @@ module Designate
   #   end
   #
   #   Generator.generate val1, attr1: val2
+  #
+  # Example with a designated method that takes a block:
+  #
+  #   class Generator
+  #     extend Designate
+  #
+  #     def initialize attributes = {}
+  #       @attr1 = attributes[:attr1]
+  #     end
+  #
+  #     def generate arg1, &block
+  #     end
+  #     designate :generate
+  #   end
+  #
+  #   Generator.generate(val1, attr1: val2) { 'blockval' }
   def designate method_symbol
     meth  = instance_method method_symbol
     arity = meth.arity
-    define_singleton_method method_symbol do |*args|
+    define_singleton_method method_symbol do |*args, &block|
       class_args    = args.slice! arity..-1
       instance_args = args
-      new(*class_args).public_send method_symbol, *instance_args
+      new(*class_args).public_send method_symbol, *instance_args, &block
     end
   end
 end

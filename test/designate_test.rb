@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'designate'
 
-class DesignateNoArgumentTest < MiniTest::Unit::TestCase
+class DesignateNoArgumentTest < Minitest::Test
   class NoArgument
     extend Designate
 
@@ -28,7 +28,7 @@ class DesignateNoArgumentTest < MiniTest::Unit::TestCase
   end
 end
 
-class DesignateOneArgumentTest < MiniTest::Unit::TestCase
+class DesignateOneArgumentTest < Minitest::Test
   class OneArgument
     extend Designate
 
@@ -55,7 +55,7 @@ class DesignateOneArgumentTest < MiniTest::Unit::TestCase
   end
 end
 
-class DesignateManyArgumentsTest < MiniTest::Unit::TestCase
+class DesignateManyArgumentsTest < Minitest::Test
   class ManyArguments
     extend Designate
 
@@ -79,5 +79,26 @@ class DesignateManyArgumentsTest < MiniTest::Unit::TestCase
     result = ManyArguments.main 'arg1', 'arg2', attr1: 'attr1'
 
     assert_equal(result, {arg1: 'arg1', arg2: 'arg2', attr1: 'attr1'})
+  end
+end
+
+class DesignateBlockArgumentTest < Minitest::Test
+  class BlockArgument
+    extend Designate
+
+    def initialize attr
+      @attr = attr
+    end
+
+    def main arg1, arg2, &block
+      {arg1: arg1, arg2: arg2, block: yield, attr: @attr}
+    end
+    designate :main
+  end
+
+  def test_calls_designated_method
+    result = BlockArgument.main('arg1', 'arg2', 'attr') { 'block' }
+
+    assert_equal(result, {arg1: 'arg1', arg2: 'arg2', block: 'block', attr: 'attr'})
   end
 end

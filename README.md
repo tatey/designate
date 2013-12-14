@@ -51,6 +51,22 @@ Example with a designated method that takes arguments:
 
     Generator.generate val1, attr1: val2
 
+Example with a designated method that takes a block:
+
+    class Generator
+      extend Designate
+
+      def initialize attributes = {}
+        @attr1 = attributes[:attr1]
+      end
+
+      def generate arg1, &block
+      end
+      designate :generate
+    end
+
+    Generator.generate(val1, attr1: val2) { 'blockval' }
+
 ## Contributing
 
 1. Fork it
