@@ -1,7 +1,8 @@
 # Designate
 
 A short hand for turning instance methods into a one-liner for service-type
-classes.
+classes. This library has been extracted from the [Tug](https://tugapp.com)
+project.
 
 ## Installation
 
